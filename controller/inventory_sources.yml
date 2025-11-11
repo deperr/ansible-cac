@@ -1,0 +1,68 @@
+# ansible-playbook controller_cac.yml --tags inventory_sources
+---
+
+controller_inventory_sources:
+
+    - name: AWS Inventory
+      organization: Default
+      source: ec2
+      inventory: AWS Inventory (RHDPS)
+      credential: AWS (RHDPS Open Environment)
+      overwrite: true
+      source_vars:
+        hostnames:
+          - tag:Name
+        compose:
+          ansible_host: public_ip_address
+          ansible_user: ec2-user
+          ansible_winrm_kerberos_hostname_override: tags.Name + '.ansible.local' if platform_details == 'Windows' else omit
+        groups:
+          cloud_aws: true
+          os_linux: "platform_details == 'Red Hat Enterprise Linux'"
+          os_windows: "platform_details == 'Windows'"
+
+        keyed_groups:
+          - key: tags.blueprint
+            prefix: blueprint
+          - key: tags.owner
+            prefix: owner
+          - key: tags.purpose
+            prefix: purpose
+          - key: tags.domain
+            prefix: domain
+          - key: tags.deployment
+            prefix: deployment
+          - key: tags.Compliance
+            separator: ''
+
+    - name: AWS Inventory
+      organization: Default
+      source: ec2
+      inventory: Home Lab
+      credential: AWS (Personal)
+      overwrite: true
+      source_vars:
+        hostnames:
+          - tag:Name
+        compose:
+          ansible_host: public_ip_address
+          ansible_user: ec2-user
+          ansible_winrm_kerberos_hostname_override: tags.Name + '.ansible.local' if platform_details == 'Windows' else omit
+        groups:
+          cloud_aws: true
+          os_linux: "platform_details == 'Red Hat Enterprise Linux'"
+          os_windows: "platform_details == 'Windows'"
+
+        keyed_groups:
+          - key: tags.blueprint
+            prefix: blueprint
+          - key: tags.owner
+            prefix: owner
+          - key: tags.purpose
+            prefix: purpose
+          - key: tags.domain
+            prefix: domain
+          - key: tags.deployment
+            prefix: deployment
+          - key: tags.Compliance
+            separator: ''

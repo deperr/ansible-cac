@@ -1,0 +1,43 @@
+# ansible-playbook cac_controller.yml --tags workflow_job_templates
+---
+
+controller_workflows:
+
+  - name: Linux | Workflow | Deploy Podman Web Server
+    organization: Default
+    labels: ['Demo','Linux']
+    description: A workflow that deploys a Podman web server with approval
+    survey_enabled: true
+    survey_spec:
+      name: ''
+      description: ''
+      spec:
+        - question_name: Server Name or Pattern
+          question_description: List the name or group of servers to manage
+          type: text
+          variable: _host
+          default: web_servers
+          required: false
+        - question_name: Enter message for web page
+          question_description: Set the message for the web page
+          type: textarea
+          variable: message
+          default: This is an Apache web server running within a Podman container.
+          required: true
+    simplified_workflow_nodes:
+      - identifier: Project Sync
+        unified_job_template: Ansible Product Demos
+        success_nodes:
+          - Approve Deployment
+      - identifier: Inventory Sync
+        unified_job_template: Home Lab
+        success_nodes:
+          - Approve Deployment
+      - identifier: Approve Deployment
+        approval_node:
+          name: Approve Deployment
+          description: Approve web server provisioning
+      - identifier: Linux | Fact Scan
+        unified_job_template: Linux | Fact Scan
+        
+

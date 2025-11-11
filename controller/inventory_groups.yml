@@ -1,0 +1,32 @@
+---
+
+controller_groups:
+
+  - name: cloud_aws
+    inventory: AWS Inventory (RHDPS)
+    variables:
+      ansible_user: ec2-user
+
+  - name: cloud_aws
+    inventory: Home Lab
+    variables:
+      ansible_user: ec2-user
+
+  - name: os_windows
+    descrption: Windows hosts in the inventory
+    inventory: Home Lab
+    variables:
+      ansible_connection: winrm
+      ansible_winrm_transport: credssp
+      ansible_winrm_server_cert_validation: ignore
+      ansible_port: 5986
+
+  - name: domain_ansible_local
+    inventory: Demo Inventory
+    variables:
+      ansible_connection: winrm
+      ansible_winrm_transport: kerberos
+      ansible_winrm_server_cert_validation: ignore
+      ansible_port: 5986
+      ansible_winrm_kinit_env_vars:
+        - KRB5_CONFIG

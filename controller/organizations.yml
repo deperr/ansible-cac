@@ -1,0 +1,9 @@
+# ansible-playbook cac_controller.yml --tags organizations
+---
+controller_organizations:
+  - name: Red Hat
+    max_hosts: 0
+    default_environment: Default Execution Environment
+    galaxy_credentials:
+      - Red Hat Automation Hub [Certified]
+      - Ansible Galaxy

@@ -1,0 +1,17 @@
+# ansible-playbook cac_controller.yml --tags labels
+---
+controller_labels:
+
+  - name: Apps
+    organization: Default
+  - name: Cloud
+    organization: Default
+  - name: Demo
+    organization: Default
+  - name: Linux
+    organization: Default
+  - name: ServiceNow
+    organization: Default
+  - name: Windows
+    organization: Default
+  

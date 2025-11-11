@@ -1,0 +1,39 @@
+# ansible-playbook cac_controller.yml --tags projects
+---
+controller_projects:
+
+- name: Cloud Management
+  scm_url: https://github.com/deperr/ansible-cloud-management.git
+  organization: Default
+  scm_branch: main
+  scm_clean: 'no'
+  scm_delete_on_update: 'no'
+  scm_type: git
+  scm_update_on_launch: 'no'
+
+- name: Linux Management
+  scm_url: https://github.com/deperr/ansible-linux-management.git
+  organization: Default
+  scm_branch: main
+  scm_clean: 'no'
+  scm_delete_on_update: 'no'
+  scm_type: git
+  scm_update_on_launch: 'no'
+
+- name: Product Demos
+  scm_url: git@github.com:ansible/product-demos.git
+  organization: Default
+  scm_branch: main
+  scm_clean: 'no'
+  scm_delete_on_update: 'no'
+  scm_type: git
+  scm_update_on_launch: 'no'
+
+- name: Windows Management
+  scm_url: https://github.com/deperr/ansible-windows-management.git
+  organization: Default
+  scm_branch: main
+  scm_clean: 'no'
+  scm_delete_on_update: 'no'
+  scm_type: git
+  scm_update_on_launch: 'no'

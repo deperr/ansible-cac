@@ -1,0 +1,14 @@
+# ansible-playbook cac_controller.yml --tags inventories
+---
+
+controller_inventories:
+  
+  - name: AWS Inventory (RHDPS)
+    organization: Default
+    description: Inventory for RHDPS AWS environment
+    label:
+      - Cloud
+
+  - name: Home Lab
+    organization: Default
+    description: Inventory for home lab environment

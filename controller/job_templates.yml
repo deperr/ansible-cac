@@ -1,0 +1,147 @@
+# ansible-playbook cac_controller.yml --tags job_templates
+---
+
+controller_templates:
+
+  - name: EDA | Break Web Service
+    description: "Break web service on specific host"
+    job_type: run
+    organization: Default
+    credentials:
+      - Linux
+    project: EDA Demos
+    playbook: break_website.yml
+    execution_environment: Product Demo EE
+    survey_enabled: true
+    survey:
+      name: ''
+      description: ''
+      spec:
+        - question_name: Server Name or Pattern
+          type: text
+          variable: _hosts
+          default: web_servers
+          required: true
+
+  - name: EDA | Fix Web Service
+    description: "Fix the web service on specific host"
+    job_type: run
+    organization: Default
+    credentials:
+      - Linux
+    project: EDA Demos
+    playbook: break_website.yml
+    execution_environment: Product Demo EE
+    survey_enabled: true
+    survey:
+      name: ''
+      description: ''
+      spec:
+        - question_name: Server Name or Pattern
+          type: text
+          variable: _hosts
+          default: web_servers
+          required: true
+
+  - name: Linux | Fact Scan
+    job_type: run
+    organization: Default
+    credentials:
+      - Linux
+    project: Ansible Product Demos
+    playbook: linux/fact_scan.yml
+    execution_environment: Product Demo EE
+    survey_enabled: true
+    survey:
+      name: ''
+      description: ''
+      spec:
+        - question_name: Server Name or Pattern
+          type: text
+          variable: _hosts
+          default: web_servers
+          required: true
+
+  - name: Linux | Podman Web Server
+    job_type: run
+    organization: Default
+    credentials:
+      - Linux
+    project: Ansible Product Demos
+    playbook: linux/podman.yml
+    execution_environment: Product Demo EE
+    survey_enabled: true
+    survey:
+      name: ''
+      description: ''
+      spec:
+        - question_name: Server Name or Pattern
+          type: text
+          variable: _hosts
+          default: web_servers
+          required: true
+        - question_name: Server Name or Pattern
+          type: textarea
+          variable: message
+          default: This is an Apache web server running in a Podman container.
+          required: true
+
+  - name: Windows | Query Services
+    job_type: run
+    organization: Default
+    credentials:
+      - Windows
+    project: Ansible Product Demos
+    playbook: windows/powershell_script.yml
+    execution_environment: Product Demo EE
+    survey_enabled: true
+    survey:
+      name: ''
+      description: ''
+      spec:
+        - question_name: Server Name or Pattern
+          type: text
+          variable: _hosts
+          default: os_windows
+          required: true
+        - question_name: Service state to query
+          type: multiplechoice
+          variable: service_state
+          default: Running
+          choices:
+            - Running
+            - Stopped
+          required: true
+
+  - name: Windows | Run PowerShell Script
+    job_type: run
+    organization: Default
+    credentials:
+      - Windows
+    project: Ansible Product Demos
+    playbook: windows/powershell_script.yml
+    execution_environment: Product Demo EE
+    survey_enabled: true
+    survey:
+      name: ''
+      description: ''
+      spec:
+        - question_name: Server Name or Pattern
+          type: text
+          variable: _hosts
+          default: os_windows
+          required: true
+        - question_name: PowerShell Script
+          type: textarea
+          variable: ps_script
+          default: Get-Service | Where-Object -FilterScript {$_.Status -eq 'running'} | Select-Object -Property 'Name'
+          required: true
+
+  - name: Windows | Test Connectivity
+    job_type: run
+    organization: Default
+    credentials:
+      - Windows
+    project: Ansible Windows Management
+    playbook: test_connectivity.yml
+    execution_environment: Product Demo EE
